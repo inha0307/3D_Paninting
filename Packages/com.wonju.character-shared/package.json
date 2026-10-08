@@ -1,0 +1,7 @@
+{
+  "name": "com.wonju.character-shared",
+  "version": "0.1.0",
+  "displayName": "Character Shared",
+  "description": "PC 색칠 앱과 Quest 앱이 함께 쓰는 베이스 캐릭터, 셰이더, 마스크, 기본 텍스처",
+  "unity": "6000.3"
+}
