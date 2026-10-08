@@ -54,7 +54,7 @@ namespace Wonju.PaintApp
 
         void Start()
         {
-            ui.SetStudent(config.HasValidStudentId ? config.studentId : null);
+            ui.SetStudent(config.HasValidStudentId ? config.Id.ToString() : null);
             ui.SubmitRequested += Submit;
             status.Changed += connected => ui.SetConnection(connected);
             StartCoroutine(status.Poll());

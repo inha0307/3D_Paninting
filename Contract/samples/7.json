@@ -1,0 +1,54 @@
+{
+  "id": 7,
+  "name": "민수",
+  "texture": "7.png",
+  "accessories": [
+    {
+      "itemId": "hat_01",
+      "bone": "Head",
+      "pos": [
+        0,
+        0.12,
+        0
+      ],
+      "rot": [
+        0,
+        0,
+        0
+      ],
+      "scale": 1.0
+    },
+    {
+      "itemId": "wand_01",
+      "bone": "Right_Hand_Socket",
+      "pos": [
+        0,
+        0,
+        0.05
+      ],
+      "rot": [
+        0,
+        0,
+        -30
+      ],
+      "scale": 0.8
+    },
+    {
+      "itemId": "scan_ab12",
+      "bone": "Chest",
+      "pos": [
+        0,
+        0.05,
+        0.12
+      ],
+      "rot": [
+        0,
+        0,
+        0
+      ],
+      "scale": 1.0,
+      "source": "scan",
+      "file": "scans/ab12.glb"
+    }
+  ]
+}

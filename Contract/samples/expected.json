@@ -1,0 +1,109 @@
+{
+  "knownItems": [
+    "hat_01",
+    "glasses_01",
+    "backpack_01",
+    "crown_01",
+    "wand_01"
+  ],
+  "knownBones": [
+    "Head",
+    "Chest",
+    "Hips",
+    "Left_Hand_Socket",
+    "Right_Hand_Socket"
+  ],
+  "cases": [
+    {
+      "file": "7.json",
+      "kept": [
+        "hat_01",
+        "wand_01",
+        "scan_ab12"
+      ],
+      "issues": []
+    },
+    {
+      "file": "8.json",
+      "kept": [
+        "hat_01",
+        "glasses_01",
+        "backpack_01",
+        "crown_01",
+        "wand_01"
+      ],
+      "issues": [
+        {
+          "code": "TooManyAccessories",
+          "index": 5
+        },
+        {
+          "code": "TooManyAccessories",
+          "index": 6
+        }
+      ]
+    },
+    {
+      "file": "9.json",
+      "kept": [
+        "hat_01"
+      ],
+      "issues": [
+        {
+          "code": "UnknownItem",
+          "index": 0
+        },
+        {
+          "code": "UnknownBone",
+          "index": 1
+        },
+        {
+          "code": "BadVector",
+          "index": 2
+        },
+        {
+          "code": "BadScale",
+          "index": 3
+        }
+      ]
+    },
+    {
+      "file": "10.json",
+      "kept": [
+        "scan_ab12",
+        "hat_01",
+        "scan_cd34",
+        "glasses_01",
+        "backpack_01"
+      ],
+      "issues": [
+        {
+          "code": "TooManyScans",
+          "index": 3
+        },
+        {
+          "code": "TooManyAccessories",
+          "index": 6
+        }
+      ]
+    },
+    {
+      "file": "12.json",
+      "kept": [],
+      "issues": [
+        {
+          "code": "BadName",
+          "index": -1
+        },
+        {
+          "code": "BadTexture",
+          "index": -1
+        },
+        {
+          "code": "BadScanFile",
+          "index": 0
+        }
+      ]
+    }
+  ]
+}

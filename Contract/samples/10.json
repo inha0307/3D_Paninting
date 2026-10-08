@@ -1,0 +1,118 @@
+{
+  "id": 10,
+  "name": "별",
+  "texture": "10.png",
+  "accessories": [
+    {
+      "itemId": "scan_ab12",
+      "bone": "Head",
+      "pos": [
+        0,
+        0.15,
+        0
+      ],
+      "rot": [
+        0,
+        0,
+        0
+      ],
+      "scale": 1.0,
+      "source": "scan",
+      "file": "scans/ab12.glb"
+    },
+    {
+      "itemId": "hat_01",
+      "bone": "Head",
+      "pos": [
+        0,
+        0.12,
+        0
+      ],
+      "rot": [
+        0,
+        0,
+        0
+      ],
+      "scale": 1.0
+    },
+    {
+      "itemId": "scan_cd34",
+      "bone": "Left_Hand_Socket",
+      "pos": [
+        0,
+        0,
+        0
+      ],
+      "rot": [
+        0,
+        0,
+        0
+      ],
+      "scale": 1.0,
+      "source": "scan",
+      "file": "scans/cd34.glb"
+    },
+    {
+      "itemId": "scan_ef56",
+      "bone": "Right_Hand_Socket",
+      "pos": [
+        0,
+        0,
+        0
+      ],
+      "rot": [
+        0,
+        0,
+        0
+      ],
+      "scale": 1.0,
+      "source": "scan",
+      "file": "scans/ef56.glb"
+    },
+    {
+      "itemId": "glasses_01",
+      "bone": "Head",
+      "pos": [
+        0,
+        0.03,
+        0.09
+      ],
+      "rot": [
+        0,
+        0,
+        0
+      ],
+      "scale": 1.0
+    },
+    {
+      "itemId": "backpack_01",
+      "bone": "Chest",
+      "pos": [
+        0,
+        0,
+        -0.1
+      ],
+      "rot": [
+        0,
+        0,
+        0
+      ],
+      "scale": 1.0
+    },
+    {
+      "itemId": "crown_01",
+      "bone": "Head",
+      "pos": [
+        0,
+        0.2,
+        0
+      ],
+      "rot": [
+        0,
+        0,
+        0
+      ],
+      "scale": 1.0
+    }
+  ]
+}

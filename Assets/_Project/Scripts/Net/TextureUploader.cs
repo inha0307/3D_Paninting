@@ -36,16 +36,16 @@ namespace Wonju.PaintApp
             {
                 using var request = UnityWebRequest.Post($"{config.serverUrl}/api/texture", new List<IMultipartFormSection>
                 {
-                    new MultipartFormDataSection("studentId", config.studentId),
+                    new MultipartFormDataSection("studentId", config.Id.ToString()),
                     new MultipartFormDataSection("characterId", config.characterId),
-                    new MultipartFormFileSection("file", png, $"{config.studentId}.png", "image/png"),
+                    new MultipartFormFileSection("file", png, $"{config.Id}.png", "image/png"),
                 });
                 request.timeout = timeoutSeconds;
                 yield return request.SendWebRequest();
 
                 if (request.result == UnityWebRequest.Result.Success)
                 {
-                    Debug.Log($"[Upload] 학생 {config.studentId} 업로드 성공 ({png.Length / 1024} KB): {request.downloadHandler.text}");
+                    Debug.Log($"[Upload] 학생 {config.Id} 업로드 성공 ({png.Length / 1024} KB): {request.downloadHandler.text}");
                     onDone(true, null);
                     yield break;
                 }
@@ -64,7 +64,7 @@ namespace Wonju.PaintApp
             try
             {
                 Directory.CreateDirectory(config.BackupPath);
-                string id = string.IsNullOrEmpty(config.studentId) ? "unknown" : config.studentId;
+                string id = config.HasValidStudentId ? config.Id.ToString() : "unknown";
                 LastBackupPath = Path.Combine(config.BackupPath, $"student{id}_{DateTime.Now:yyyyMMdd_HHmmss}.png");
                 File.WriteAllBytes(LastBackupPath, png);
             }
