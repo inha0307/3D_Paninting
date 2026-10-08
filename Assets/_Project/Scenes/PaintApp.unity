@@ -130,6 +130,7 @@ GameObject:
   - component: {fileID: 527965883}
   - component: {fileID: 527965882}
   - component: {fileID: 527965881}
+  - component: {fileID: 527965884}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -204,13 +205,38 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 527965880}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 1, z: 0, w: 2.2546744e-15}
-  m_LocalPosition: {x: 0, y: 0.47693813, z: 2.6}
+  m_LocalRotation: {x: -0.0000000038096983, y: 0.9961947, z: -0.08715574, w: -0.000000043545054}
+  m_LocalPosition: {x: 0.00000022384604, y: 0.92842335, z: 2.5605001}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &527965884
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 527965880}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f52a694e2edf90498f2d0805e0330e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Wonju.PaintApp::Wonju.PaintApp.OrbitCamera
+  target: {fileID: 952526888}
+  degreesPerPixel: 0.3
+  minPitch: -85
+  maxPitch: 85
+  minDistance: 0.6
+  maxDistance: 4
+  zoomPerNotch: 0.12
+  initialYaw: 180
+  initialPitch: 10
+  initialDistance: 2.6
+  headlight: {fileID: 588941238}
+  headlightOffset: {x: 20, y: 20}
+  smoothing: 18
 --- !u!1 &588941236
 GameObject:
   m_ObjectHideFlags: 0
@@ -395,6 +421,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e9ad403a069e08b49b0025e74b91d22f, type: 3}
+--- !u!137 &952526888 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 7570465981896203843, guid: e9ad403a069e08b49b0025e74b91d22f, type: 3}
+  m_PrefabInstance: {fileID: 952526887}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

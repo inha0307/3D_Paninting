@@ -1,0 +1,13 @@
+{
+    "name": "Wonju.PaintApp",
+    "rootNamespace": "Wonju.PaintApp",
+    "references": [
+        "Unity.InputSystem",
+        "Wonju.CharacterShared"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "autoReferenced": true,
+    "noEngineReferences": false
+}
