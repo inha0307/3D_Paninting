@@ -180,6 +180,32 @@ namespace Wonju.PaintApp
             return new Color(c.r, c.g, c.b, 1f);
         }
 
+        /// <summary>
+        /// 업로드용 PNG. 이음새 여백을 채운 결과(강조 표시는 빼고)를 sRGB 1024px PNG로 만듭니다.
+        /// Quest 앱이 같은 셰이더로 입히면 색칠 화면과 같은 모습이 됩니다.
+        /// </summary>
+        public byte[] EncodePng()
+        {
+            var export = RenderTexture.GetTemporary(canvas.descriptor);
+            dilateMaterial.SetTexture(CoverageTexId, coverage);
+            dilateMaterial.SetInt(RadiusId, dilatePixels);
+            dilateMaterial.SetFloat(HighlightPartId, 0f);
+            Graphics.Blit(canvas, export, dilateMaterial, 0);
+            dirty = true; // 강조 값을 바꿨으므로 표시용 텍스처를 다시 만듭니다.
+
+            var pixels = new Texture2D(canvas.width, canvas.height, TextureFormat.RGBA32, false);
+            var previous = RenderTexture.active;
+            RenderTexture.active = export;
+            pixels.ReadPixels(new Rect(0, 0, canvas.width, canvas.height), 0, 0, false);
+            pixels.Apply(false);
+            RenderTexture.active = previous;
+            RenderTexture.ReleaseTemporary(export);
+
+            var png = pixels.EncodeToPNG();
+            Destroy(pixels);
+            return png;
+        }
+
         /// <summary>display를 다시 만들도록 표시합니다. 캔버스를 외부에서 바꾼 뒤(되돌리기 등) 호출합니다.</summary>
         public void MarkDirty() => dirty = true;
 

@@ -44,3 +44,7 @@ Server/.pytest_cache/
 # OS
 .DS_Store
 Thumbs.db
+
+# 색칠 앱 PC별 설정과 업로드 백업 (config.example.json을 복사해 사용)
+/config.json
+/Backups/
