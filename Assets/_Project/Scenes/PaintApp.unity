@@ -426,6 +426,76 @@ SkinnedMeshRenderer:
   m_CorrespondingSourceObject: {fileID: 7570465981896203843, guid: e9ad403a069e08b49b0025e74b91d22f, type: 3}
   m_PrefabInstance: {fileID: 952526887}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1242474664
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1242474667}
+  - component: {fileID: 1242474666}
+  - component: {fileID: 1242474665}
+  m_Layer: 0
+  m_Name: Painter
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1242474665
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1242474664}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3cd3a4f5412350c4bafb491e5db6e1bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Wonju.PaintApp::Wonju.PaintApp.BrushInput
+  canvas: {fileID: 1242474666}
+  viewCamera: {fileID: 527965882}
+  orbit: {fileID: 527965884}
+  color: {r: 0.93, g: 0.26, b: 0.21, a: 1}
+  radius: 0.03
+  screenStepPixels: 4
+  maxJoinRadii: 4
+--- !u!114 &1242474666
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1242474664}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4964842c510872343b995d58a0a00474, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Wonju.PaintApp::Wonju.PaintApp.PaintCanvas
+  target: {fileID: 952526888}
+  baseTexture: {fileID: 0}
+  brushShader: {fileID: 4800000, guid: b4cefd0e0a5bc064c8ac95f9a26e6b1d, type: 3}
+  dilateShader: {fileID: 4800000, guid: df0cc6133a3b6a548b83cda4e3f77cbd, type: 3}
+  dilatePixels: 4
+  hardness: 0.8
+--- !u!4 &1242474667
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1242474664}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -433,3 +503,4 @@ SceneRoots:
   - {fileID: 527965883}
   - {fileID: 588941239}
   - {fileID: 952526887}
+  - {fileID: 1242474667}
