@@ -26,7 +26,7 @@ from typing import Annotated
 
 from fastapi import FastAPI, File, Form, HTTPException, Path as PathParam, UploadFile
 from fastapi.concurrency import run_in_threadpool
-from fastapi.responses import FileResponse
+from fastapi.responses import Response
 
 TEXTURE_SIZE = 1024
 MAX_UPLOAD_BYTES = 8 * 1024 * 1024
@@ -88,6 +88,18 @@ class PlayerStore:
             return None
         return self.textures_dir / student_id / f"{player['version']}.png"
 
+    def read_texture(self, student_id: str, attempts: int = 3) -> bytes | None:
+        """최신 텍스처를 읽습니다. 경로를 받은 직후 새 업로드가 이전 파일을 지웠으면 새 경로로 다시 읽습니다."""
+        for _ in range(attempts):
+            path = self.texture_path(student_id)
+            if path is None:
+                return None
+            try:
+                return path.read_bytes()
+            except FileNotFoundError:
+                continue
+        return None
+
     def list(self) -> list[dict]:
         return sorted(self.players.values(), key=lambda p: (len(p["studentId"]), p["studentId"]))
 
@@ -146,10 +158,11 @@ def create_app(data_dir: Path) -> FastAPI:
 
     @app.get("/textures/{studentId}.png")
     def texture(studentId: Annotated[str, PathParam(pattern=ID_PATTERN)]):
-        path = store.texture_path(studentId)
-        if path is None or not path.exists():
+        # 파일을 열어 둔 채 응답하지 않고 바로 메모리로 읽습니다. 응답 도중 새 업로드가 이전 파일을 지워도 안전합니다.
+        data = store.read_texture(studentId)
+        if data is None:
             raise HTTPException(404, "텍스처가 없습니다.")
-        return FileResponse(path, media_type="image/png", headers={"Cache-Control": "no-cache"})
+        return Response(data, media_type="image/png", headers={"Cache-Control": "no-cache"})
 
     return app
 

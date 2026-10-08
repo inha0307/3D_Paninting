@@ -5,7 +5,7 @@ from concurrent.futures import ThreadPoolExecutor
 import pytest
 from fastapi.testclient import TestClient
 
-from main import create_app
+from main import PNG_SIGNATURE, create_app
 
 
 def make_png(width: int = 1024, height: int = 1024, rgb: tuple[int, int, int] = (255, 0, 0)) -> bytes:
@@ -89,3 +89,21 @@ def test_twenty_concurrent_uploads(client):
         results = list(pool.map(lambda i: upload(client, str(i)).status_code, range(1, 21)))
     assert results == [200] * 20
     assert len(client.get("/api/players").json()["players"]) == 20
+
+
+def test_downloads_survive_concurrent_reuploads(client):
+    """Quest가 받는 도중 같은 학생이 다시 올려도 다운로드가 실패하지 않아야 합니다 (부하 시험에서 찾은 500 오류)."""
+    upload(client, "1")
+
+    def reupload(i):
+        return upload(client, "1", png=make_png(rgb=(i % 256, 0, 0))).status_code
+
+    def download(_):
+        res = client.get("/textures/1.png")
+        return res.status_code, res.content[:8]
+
+    with ThreadPoolExecutor(max_workers=16) as pool:
+        uploads = [pool.submit(reupload, i) for i in range(40)]
+        downloads = [pool.submit(download, i) for i in range(200)]
+        assert [f.result() for f in uploads] == [200] * 40
+        assert all(f.result() == (200, PNG_SIGNATURE) for f in downloads)

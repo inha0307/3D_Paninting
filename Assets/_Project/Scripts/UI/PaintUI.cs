@@ -54,6 +54,9 @@ namespace Wonju.PaintApp.UI
         readonly List<(Color color, Image outline)> swatches = new();
         SubmitDialog dialog;
         RenderTexture frontPreview, backPreview;
+        RectTransform toast;
+        Text toastText;
+        float toastHideAt;
 
         /// <summary>완료 창에서 [보내기]를 눌렀을 때. 받는 쪽이 업로드 후 Dialog.ShowSuccess/ShowFailure를 호출합니다.</summary>
         public event Action<SubmitDialog> SubmitRequested;
@@ -75,6 +78,12 @@ namespace Wonju.PaintApp.UI
             dialog = SubmitDialog.Create(canvas, ui, frontPreview, backPreview);
             dialog.Submitted += OnSubmit;
             dialog.Closed += () => SetPaintingEnabled(true);
+
+            toast = UIFactory.Rect("Toast", canvas, new Vector2(0.5f, 1f), new Vector2(0.5f, 1f), new Vector2(0f, -24f), new Vector2(320f, 56f));
+            ui.RoundedImage(toast, UIStyle.TooltipBg, 16f).raycastTarget = false;
+            toastText = ui.Label(UIFactory.Stretch("Text", toast), "", 22, true, Color.white);
+            toast.gameObject.SetActive(false);
+
             Tooltip.Create(canvas, ui);
 
             SetStudent(null);
@@ -118,6 +127,29 @@ namespace Wonju.PaintApp.UI
 
         /// <summary>한 번 보낸 뒤에는 완료 버튼을 "다시 보내기"로 바꿉니다.</summary>
         public void MarkSubmitted() => doneButton.SetLabel("다시 보내기");
+
+        /// <summary>회차 초기화: 완료 버튼과 창을 처음 상태로 되돌리고 잠깐 안내를 띄웁니다.</summary>
+        public void ResetRound()
+        {
+            doneButton.SetLabel("완료");
+            if (dialog.IsOpen) dialog.Close();
+            ShowToast("새 회차를 시작했어요");
+        }
+
+        /// <summary>화면 위쪽 가운데에 잠깐 보이는 안내. 운영자 동작을 확인하는 용도입니다.</summary>
+        public void ShowToast(string message, float seconds = 2f)
+        {
+            toastText.text = message;
+            toast.sizeDelta = new Vector2(toastText.preferredWidth + 48f, 56f);
+            toast.gameObject.SetActive(true);
+            toastHideAt = Time.unscaledTime + seconds;
+        }
+
+        void Update()
+        {
+            if (toast.gameObject.activeSelf && Time.unscaledTime >= toastHideAt)
+                toast.gameObject.SetActive(false);
+        }
 
         // ───────────────────────── 화면 구성 ─────────────────────────
 

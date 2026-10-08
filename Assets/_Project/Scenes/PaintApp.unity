@@ -201,6 +201,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Wonju.PaintApp::Wonju.PaintApp.PaintSession
   canvas: {fileID: 1242474666}
+  controller: {fileID: 1242474665}
+  tools: {fileID: 1242474669}
+  orbit: {fileID: 527965884}
   ui: {fileID: 331545816}
 --- !u!1 &527965880
 GameObject:

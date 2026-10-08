@@ -26,6 +26,9 @@ namespace Wonju.PaintApp
 
         PaintTool beforePicker = PaintTool.Brush;
         bool altPicker;
+        PaintTool defaultTool;
+        Color defaultColor;
+        int defaultSize;
 
         readonly InputAction brushKey = new("Brush", InputActionType.Button, "<Keyboard>/b");
         readonly InputAction eraserKey = new("Eraser", InputActionType.Button, "<Keyboard>/e");
@@ -54,6 +57,19 @@ namespace Wonju.PaintApp
         {
             altKey.AddBinding("<Keyboard>/leftAlt");
             altKey.AddBinding("<Keyboard>/rightAlt");
+            defaultTool = tool;
+            defaultColor = color;
+            defaultSize = sizeIndex;
+        }
+
+        /// <summary>회차 초기화: 시작할 때의 도구·색·크기로 되돌립니다.</summary>
+        public void ResetToDefaults()
+        {
+            tool = defaultTool;
+            color = defaultColor;
+            sizeIndex = defaultSize;
+            beforePicker = PaintTool.Brush;
+            Changed?.Invoke();
         }
 
         void OnEnable()
