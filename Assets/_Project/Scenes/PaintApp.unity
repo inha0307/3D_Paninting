@@ -119,6 +119,74 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &331545815
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 331545817}
+  - component: {fileID: 331545816}
+  m_Layer: 0
+  m_Name: PaintUI
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &331545816
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 331545815}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2c726ec732f88c419874e7e5aa8fdf9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Wonju.PaintApp::Wonju.PaintApp.UI.PaintUI
+  tools: {fileID: 1242474669}
+  controller: {fileID: 1242474665}
+  orbit: {fileID: 527965884}
+  character: {fileID: 952526888}
+  headlight: {fileID: 588941238}
+  regularFont: {fileID: 12800000, guid: 6718fb283ec2a154aa78b5e7304f53b6, type: 3}
+  semiBoldFont: {fileID: 12800000, guid: dc75d41cd86a19241bc269534fe8fb42, type: 3}
+  roundSprite: {fileID: 21300000, guid: 4487be8329b60844782ad1d803616393, type: 3}
+  roundOutlineSprite: {fileID: 21300000, guid: 15acda676d304474abcdfe6dccfec4c3, type: 3}
+  circleSprite: {fileID: 21300000, guid: acf1fc8d8f5849144a30bf6f5a325264, type: 3}
+  icons:
+    brush: {fileID: 21300000, guid: c7e36390feedbc34e99d51cc88e6bb0c, type: 3}
+    eraser: {fileID: 21300000, guid: 1e8ee09e1c0510f40b28b93fcbbfb90e, type: 3}
+    fill: {fileID: 21300000, guid: 910de65e7f8234041802350c61d87f8c, type: 3}
+    picker: {fileID: 21300000, guid: d72bc944928b5094b9894491a5613d93, type: 3}
+    undo: {fileID: 21300000, guid: e4feec7c3bc137241b9c9d7357915162, type: 3}
+    redo: {fileID: 21300000, guid: 7893e37dc92f88f43aad7dcd07098c13, type: 3}
+    viewReset: {fileID: 21300000, guid: ca1e6a50e15d35b48866b197bc9027b6, type: 3}
+    done: {fileID: 21300000, guid: efa0aa928210e4b49b6afe684afe181c, type: 3}
+    wifi: {fileID: 21300000, guid: c36bf17d91e713845969177c722a1a34, type: 3}
+    wifiOff: {fileID: 21300000, guid: e304bfddecf4b5d42a5a00b135954457, type: 3}
+    mouseLeft: {fileID: 21300000, guid: b3596112771316e4294753730efcb901, type: 3}
+    mouseRight: {fileID: 21300000, guid: 1d81d65b277f97f43987e5733506cbf5, type: 3}
+    mouseWheel: {fileID: 21300000, guid: b60855b9ba838794dbee0a386a1fa8ad, type: 3}
+--- !u!4 &331545817
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 331545815}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &527965880
 GameObject:
   m_ObjectHideFlags: 0
@@ -437,6 +505,8 @@ GameObject:
   - component: {fileID: 1242474667}
   - component: {fileID: 1242474666}
   - component: {fileID: 1242474665}
+  - component: {fileID: 1242474669}
+  - component: {fileID: 1242474668}
   m_Layer: 0
   m_Name: Painter
   m_TagString: Untagged
@@ -457,12 +527,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Wonju.PaintApp::Wonju.PaintApp.BrushInput
   canvas: {fileID: 1242474666}
+  tools: {fileID: 1242474669}
   viewCamera: {fileID: 527965882}
   orbit: {fileID: 527965884}
-  color: {r: 0.93, g: 0.26, b: 0.21, a: 1}
-  radius: 0.03
+  brushCursor: {fileID: 1242474668}
+  rotateCursor: {fileID: 2800000, guid: 6afb05ec657d3af49a7e5f8e49486dc6, type: 3}
   screenStepPixels: 4
   maxJoinRadii: 4
+  backgroundDragThreshold: 4
+  pickerCursorRadius: 0.012
+  undoSteps: 20
 --- !u!114 &1242474666
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -477,6 +551,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Wonju.PaintApp::Wonju.PaintApp.PaintCanvas
   target: {fileID: 952526888}
   baseTexture: {fileID: 0}
+  partMask: {fileID: 2800000, guid: 823e4e88b234a5f49b2a4faab25e2525, type: 3}
   brushShader: {fileID: 4800000, guid: b4cefd0e0a5bc064c8ac95f9a26e6b1d, type: 3}
   dilateShader: {fileID: 4800000, guid: df0cc6133a3b6a548b83cda4e3f77cbd, type: 3}
   dilatePixels: 4
@@ -496,6 +571,39 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1242474668
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1242474664}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39e21598f3c9f5d49892cc0db06e855e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Wonju.PaintApp::Wonju.PaintApp.BrushCursor
+  canvas: {fileID: 1242474666}
+  shader: {fileID: 4800000, guid: 2bd99b0a705ebdb4ea3a165190e40cdb, type: 3}
+--- !u!114 &1242474669
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1242474664}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c1285c95d30c444cbb96d8636422a2c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Wonju.PaintApp::Wonju.PaintApp.PaintTools
+  tool: 0
+  color: {r: 0.898, g: 0.224, b: 0.208, a: 1}
+  sizes:
+  - 0.015
+  - 0.03
+  - 0.06
+  sizeIndex: 1
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -504,3 +612,4 @@ SceneRoots:
   - {fileID: 588941239}
   - {fileID: 952526887}
   - {fileID: 1242474667}
+  - {fileID: 331545817}

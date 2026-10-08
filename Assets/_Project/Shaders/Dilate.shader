@@ -1,11 +1,13 @@
 // UV 섬 바깥 여백 픽셀을 가장 가까운 섬 픽셀의 색으로 채웁니다.
 // 텍스처 필터링과 밉맵이 여백을 섞어도 이음새에 선이 보이지 않게 합니다.
+// 채우기 도구에서 마우스를 올린 부위는 밝게 강조합니다 (표시용 텍스처에만 적용, 캔버스는 그대로).
 Shader "Hidden/Wonju/Dilate"
 {
     Properties
     {
         _MainTex ("Canvas", 2D) = "white" {}
         _CoverageTex ("Coverage", 2D) = "black" {}
+        _MaskTex ("Part Mask", 2D) = "black" {}
     }
 
     SubShader
@@ -23,8 +25,11 @@ Shader "Hidden/Wonju/Dilate"
 
             TEXTURE2D(_MainTex);
             TEXTURE2D(_CoverageTex);
+            TEXTURE2D(_MaskTex);
             float4 _MainTex_TexelSize;
             int _Radius;
+            float _HighlightPart;   // 0이면 강조 없음
+            float _MaskValueStep;
 
             struct Attributes
             {
@@ -56,10 +61,19 @@ Shader "Hidden/Wonju/Dilate"
                 return SAMPLE_TEXTURE2D_LOD(_CoverageTex, sampler_PointClamp, uv, 0).r > 0.5;
             }
 
-            half4 Frag(Varyings input) : SV_Target
+            half4 Highlight(half4 color, float2 uv)
             {
-                half4 color = SAMPLE_TEXTURE2D_LOD(_MainTex, sampler_PointClamp, input.uv, 0);
-                if (Covered(input.uv))
+                if (_HighlightPart < 0.5) return color;
+                float id = round(SAMPLE_TEXTURE2D_LOD(_MaskTex, sampler_PointClamp, uv, 0).r * 255.0 / _MaskValueStep);
+                // 흰 부위에서도 보이도록 밝게 하는 대신 강조색(UI 파랑, 선형 값)을 섞습니다.
+                const half3 accent = half3(0.028h, 0.159h, 0.846h);
+                return abs(id - _HighlightPart) < 0.5 ? half4(lerp(color.rgb, accent, 0.3h), color.a) : color;
+            }
+
+            half4 Dilated(float2 uv0)
+            {
+                half4 color = SAMPLE_TEXTURE2D_LOD(_MainTex, sampler_PointClamp, uv0, 0);
+                if (Covered(uv0))
                     return color;
 
                 float2 texel = _MainTex_TexelSize.xy;
@@ -72,7 +86,7 @@ Shader "Hidden/Wonju/Dilate"
                     [loop] for (int x = -r; x <= r; x++)
                     {
                         if (max(abs(x), abs(y)) != r) continue; // 이번 반경의 테두리만 검사
-                        float2 uv = input.uv + float2(x, y) * texel;
+                        float2 uv = uv0 + float2(x, y) * texel;
                         float dist = x * x + y * y;
                         if (dist < bestDist && Covered(uv))
                         {
@@ -82,6 +96,11 @@ Shader "Hidden/Wonju/Dilate"
                     }
                 }
                 return best;
+            }
+
+            half4 Frag(Varyings input) : SV_Target
+            {
+                return Highlight(Dilated(input.uv), input.uv);
             }
             ENDHLSL
         }

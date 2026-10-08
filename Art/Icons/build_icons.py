@@ -14,6 +14,7 @@
     Assets/_Project/Textures/Icons/icon_*.png  흰색 + 투명 배경 (Unity Image 색으로 칠함)
     Art/Icons/svg/icon_*.svg                   원본 SVG
     Art/Icons/preview.png                      흰 배경에 검은색으로 모아 본 미리보기
+    Assets/_Project/Textures/UI/*.png          둥근 사각형·원 9-slice 스프라이트, 회전 커서
 """
 
 from __future__ import annotations
@@ -114,6 +115,37 @@ ICONS: dict[str, tuple[str, str]] = {
 }
 
 
+UI_DIR = ROOT / "Assets" / "_Project" / "Textures" / "UI"
+
+# 배경 위에서 보이는 회전 커서 (Lucide rotate-3d). 흰 테두리 위에 검은 선으로 그려 어떤 배경에서도 보입니다.
+CURSOR_ROTATE = """
+    <path d="M16.466 7.5C15.643 4.237 13.952 2 12 2 9.239 2 7 6.477 7 12s2.239 10 5 10c.342 0 .677-.069 1-.2"/>
+    <path d="m15.194 13.707 3.814 1.86-1.86 3.814"/>
+    <path d="M19 15.57c-1.804.885-4.274 1.43-7 1.43-5.523 0-10-2.239-10-5s4.477-5 10-5c4.838 0 8.873 1.718 9.8 4"/>
+"""
+
+# uGUI 9-slice용 흰 도형 (64px, 모서리 반지름 16 → 스프라이트 테두리 20)
+UI_SHAPES = {
+    "ui_round": '<rect x="0" y="0" width="64" height="64" rx="16" fill="#FFFFFF"/>',
+    "ui_round_outline": '<rect x="1.5" y="1.5" width="61" height="61" rx="14.5" fill="none" stroke="#FFFFFF" stroke-width="3"/>',
+    "ui_circle": '<circle cx="32" cy="32" r="32" fill="#FFFFFF"/>',
+    "ui_circle_outline": '<circle cx="32" cy="32" r="30.5" fill="none" stroke="#FFFFFF" stroke-width="3"/>',
+}
+
+
+def build_ui_sprites() -> None:
+    UI_DIR.mkdir(parents=True, exist_ok=True)
+    for name, shape in UI_SHAPES.items():
+        svg = f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">{shape}</svg>'
+        render(svg, 64).save(UI_DIR / f"{name}.png")
+
+    halo = make_svg(CURSOR_ROTATE, "#FFFFFF", 4.5, 1.5)
+    line = make_svg(CURSOR_ROTATE, "#000000", 2.0, 1.5)
+    cursor = render(halo, 32)
+    cursor.alpha_composite(render(line, 32))
+    cursor.save(UI_DIR / "cursor_rotate.png")
+
+
 def make_svg(body: str, color: str, stroke: float, padding: float) -> str:
     box = 24 + padding * 2
     return (
@@ -168,6 +200,7 @@ def main() -> None:
         previews[name] = render(black, args.size)
 
     build_preview(previews, cell=256, small=36).convert("RGB").save(PREVIEW)
+    build_ui_sprites()
     print(f"{len(ICONS)}개 아이콘 → {PNG_DIR.relative_to(ROOT)}, 미리보기 {PREVIEW.relative_to(ROOT)}")
 
 

@@ -3,6 +3,7 @@
     "rootNamespace": "Wonju.PaintApp",
     "references": [
         "Unity.InputSystem",
+        "UnityEngine.UI",
         "Wonju.CharacterShared"
     ],
     "includePlatforms": [],
