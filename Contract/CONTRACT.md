@@ -49,13 +49,15 @@ Quest 개발팀이 보낸 규약을 기준으로, 두 팀이 답을 맞춘 내�
 
 보내는 쪽(색칠 앱, 서버)은 같은 규칙으로 미리 검사해, 정상 데이터만 보내는 것을 목표로 한다.
 
+서버는 여기에 더해, 서버에 등록되지 않았거나 다른 학생이 올린 스캔을 가리키는 장식을 1단계에서 버린다 (`UnknownScan`). 스캔 GLB는 변환 후 경량화 기준을 서버가 다시 검사해 통과한 것만 `scans/`에 등록한다.
+
 ## 두 팀이 맞춘 내용
 
 | 질문 | 결정 |
 | --- | --- |
 | 장식은 어디서 붙이나 | PC 색칠 앱에서 붙이고 Quest는 읽기만 |
 | 테스트 서버 | 개발 PC `http://192.168.0.14:8000` |
-| 서버 경로 (제안) | `GET /api/characters` 목록, `/characters/{id}.png`, `/characters/{id}.json`, `/scans/{file}` |
+| 서버 경로 (제안, 구현됨) | `GET /api/characters` 목록, `/characters/{id}.png`, `/characters/{id}.json`, `/scans/{file}`. 자세한 API는 `Server/README.md` |
 | 다시 보낸 캐릭터 (제안) | 목록의 `version`이 오르면 Quest가 다시 받음. Quest는 5초마다 목록 확인 |
 | 장식 모델·ID 목록 (제안) | 공유 패키지 `com.wonju.character-shared`의 `AccessoryDatabase`를 두 앱이 함께 사용 |
 | 붙일 수 있는 본 (제안) | `Head`, `Chest`, `Hips`, `Left_Hand_Socket`, `Right_Hand_Socket` |

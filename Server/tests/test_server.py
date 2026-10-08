@@ -31,7 +31,7 @@ def client(tmp_path):
 
 
 def test_health(client):
-    assert client.get("/api/health").json() == {"status": "ok", "players": 0}
+    assert client.get("/api/health").json() == {"status": "ok", "players": 0, "characters": 0}
 
 
 def test_upload_then_download(client):

@@ -28,6 +28,7 @@ BAD_SCALE = "BadScale"
 BAD_SCAN_FILE = "BadScanFile"
 TOO_MANY_SCANS = "TooManyScans"
 TOO_MANY_ACCESSORIES = "TooManyAccessories"
+UNKNOWN_SCAN = "UnknownScan"  # 서버 전용: 등록되지 않았거나 다른 학생의 스캔 (C#에는 없음, Quest는 GLB를 못 받으면 건너뜀)
 
 
 @dataclass
@@ -56,8 +57,14 @@ def normalize_id(value: Any) -> int | None:
     return number if number >= 1 else None
 
 
-def sanitize(data: dict[str, Any], is_known_item: Callable[[str], bool], is_known_bone: Callable[[str], bool]) -> Result:
-    """규약대로 정리한 사본과 문제 목록. 장식: ① 잘못된 항목 버림 ② 스캔 앞에서 2개 ③ 전체 앞에서 5개."""
+def sanitize(
+    data: dict[str, Any],
+    is_known_item: Callable[[str], bool],
+    is_known_bone: Callable[[str], bool],
+    is_known_scan: Callable[[dict[str, Any]], bool] | None = None,
+) -> Result:
+    """규약대로 정리한 사본과 문제 목록. 장식: ① 잘못된 항목 버림 ② 스캔 앞에서 2개 ③ 전체 앞에서 5개.
+    is_known_scan을 주면(서버) 형식이 맞아도 등록되지 않은 스캔 장식을 ①에서 버립니다."""
     issues: list[Issue] = []
     character_id = data.get("id", 0)
     if not isinstance(character_id, int) or isinstance(character_id, bool) or character_id < 1:
@@ -74,6 +81,8 @@ def sanitize(data: dict[str, Any], is_known_item: Callable[[str], bool], is_know
         if not isinstance(entry, dict):
             continue
         problem = _check_entry(entry, is_known_item, is_known_bone)
+        if not problem and is_known_scan and _source(entry) == "scan" and not is_known_scan(entry):
+            problem = (UNKNOWN_SCAN, f"등록되지 않은 스캔: {entry.get('itemId')!r} ({entry.get('file')!r})")
         if problem:
             issues.append(Issue(problem[0], index, problem[1]))
             continue
