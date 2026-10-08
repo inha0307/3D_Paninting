@@ -38,6 +38,8 @@ sysinfo.txt
 Server/.venv/
 Server/__pycache__/
 Server/data/
+Server/.pytest_cache/
+.pytest_cache/
 
 # OS
 .DS_Store
