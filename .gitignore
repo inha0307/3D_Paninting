@@ -36,7 +36,7 @@ sysinfo.txt
 
 # 업로드 서버 (Python)
 Server/.venv/
-Server/__pycache__/
+__pycache__/
 Server/data/
 Server/.pytest_cache/
 .pytest_cache/
