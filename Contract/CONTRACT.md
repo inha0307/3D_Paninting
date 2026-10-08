@@ -63,6 +63,17 @@ Quest 개발팀이 보낸 규약을 기준으로, 두 팀이 답을 맞춘 내�
 
 `(제안)`은 Quest 팀 확인을 기다리는 항목입니다.
 
-## 기본 장식 ID (제안, B단계에서 확정)
+## 기본 장식 ID
 
-`hat_01` 모자, `glasses_01` 안경, `backpack_01` 가방, `crown_01` 왕관, `wand_01` 요술봉
+`Packages/com.wonju.character-shared/Runtime/AccessoryDatabase.asset`이 정본이고, 서버 검사용 사본은 `item_ids.json`입니다 (Unity 메뉴 Tools > Character > Export Accessory IDs).
+지금 프리팹은 기본 도형으로 만든 **임시 모델**입니다. 실제 모델로 바꿀 때 `itemId`는 그대로 둡니다.
+
+| itemId | 이름 | 붙일 수 있는 본 (첫 번째가 처음 붙는 본) |
+| --- | --- | --- |
+| `hat_01` | 모자 | `Head` |
+| `glasses_01` | 안경 | `Head` |
+| `backpack_01` | 가방 | `Chest`, `Hips` |
+| `crown_01` | 왕관 | `Head` |
+| `wand_01` | 요술봉 | `Right_Hand_Socket`, `Left_Hand_Socket` |
+
+프리팹 규칙: 루트 원점이 본에 붙는 지점, 렌더러 1개(재질별 서브메쉬), 콜라이더 없음, 셰이더 `Wonju/CharacterPaint`.

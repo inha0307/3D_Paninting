@@ -43,3 +43,12 @@ def test_source_defaults_to_builtin():
 @pytest.mark.parametrize("value, expected", [("07", 7), (7, 7), (" 12 ", 12), ("0", None), ("abc", None), (-1, None)])
 def test_normalize_id(value, expected):
     assert normalize_id(value) == expected
+
+
+def test_item_ids_export_matches_samples():
+    """Unity가 내보낸 Contract/item_ids.json(서버 검사용)과 샘플의 장식·본 목록이 같아야 합니다."""
+    export = json.loads((SAMPLES.parent / "item_ids.json").read_text(encoding="utf-8"))
+    assert {i["itemId"] for i in export["items"]} == KNOWN_ITEMS
+    assert set(export["bones"]) == KNOWN_BONES
+    for item in export["items"]:
+        assert item["allowedBones"] and set(item["allowedBones"]) <= KNOWN_BONES

@@ -1,0 +1,68 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29f97e571477fa24882446886542fa11, type: 3}
+  m_Name: AccessoryDatabase
+  m_EditorClassIdentifier: Wonju.CharacterShared::Wonju.CharacterShared.AccessoryDatabase
+  attachableBones:
+  - Head
+  - Chest
+  - Hips
+  - Left_Hand_Socket
+  - Right_Hand_Socket
+  items:
+  - itemId: hat_01
+    displayName: "\uBAA8\uC790"
+    prefab: {fileID: 5794879539264983880, guid: f0e252f7e189a6b4bb6cb590391594f0, type: 3}
+    icon: {fileID: 0}
+    allowedBones:
+    - Head
+    defaultPosition: {x: 0, y: 0.25, z: 0}
+    defaultRotation: {x: 0, y: 0, z: 0}
+    defaultScale: 1
+  - itemId: glasses_01
+    displayName: "\uC548\uACBD"
+    prefab: {fileID: 5386717083753020486, guid: f3b14bd13571d9e4e8aec889335c7deb, type: 3}
+    icon: {fileID: 0}
+    allowedBones:
+    - Head
+    defaultPosition: {x: 0, y: 0.14, z: 0.16}
+    defaultRotation: {x: 0, y: 0, z: 0}
+    defaultScale: 1
+  - itemId: backpack_01
+    displayName: "\uAC00\uBC29"
+    prefab: {fileID: 206526544545545775, guid: 72052801c9e126844958e1e5f78a478a, type: 3}
+    icon: {fileID: 0}
+    allowedBones:
+    - Chest
+    - Hips
+    defaultPosition: {x: 0, y: 0.07, z: -0.1}
+    defaultRotation: {x: 0, y: 0, z: 0}
+    defaultScale: 1
+  - itemId: crown_01
+    displayName: "\uC655\uAD00"
+    prefab: {fileID: 3268249416588808231, guid: f4d73fc1de3ee674ba8e15691b803eac, type: 3}
+    icon: {fileID: 0}
+    allowedBones:
+    - Head
+    defaultPosition: {x: 0, y: 0.27, z: 0}
+    defaultRotation: {x: 0, y: 0, z: 0}
+    defaultScale: 1
+  - itemId: wand_01
+    displayName: "\uC694\uC220\uBD09"
+    prefab: {fileID: 3848518121647251630, guid: e98597e15e43bad47b4344f9ee49aa2a, type: 3}
+    icon: {fileID: 0}
+    allowedBones:
+    - Right_Hand_Socket
+    - Left_Hand_Socket
+    defaultPosition: {x: 0, y: 0, z: 0}
+    defaultRotation: {x: 90, y: 0, z: 0}
+    defaultScale: 1

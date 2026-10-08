@@ -1,0 +1,48 @@
+{
+    "bones": [
+        "Head",
+        "Chest",
+        "Hips",
+        "Left_Hand_Socket",
+        "Right_Hand_Socket"
+    ],
+    "items": [
+        {
+            "itemId": "hat_01",
+            "displayName": "모자",
+            "allowedBones": [
+                "Head"
+            ]
+        },
+        {
+            "itemId": "glasses_01",
+            "displayName": "안경",
+            "allowedBones": [
+                "Head"
+            ]
+        },
+        {
+            "itemId": "backpack_01",
+            "displayName": "가방",
+            "allowedBones": [
+                "Chest",
+                "Hips"
+            ]
+        },
+        {
+            "itemId": "crown_01",
+            "displayName": "왕관",
+            "allowedBones": [
+                "Head"
+            ]
+        },
+        {
+            "itemId": "wand_01",
+            "displayName": "요술봉",
+            "allowedBones": [
+                "Right_Hand_Socket",
+                "Left_Hand_Socket"
+            ]
+        }
+    ]
+}
