@@ -32,5 +32,16 @@ namespace Wonju.CharacterShared
         public float scale = 1f;
 
         public bool IsScan => source == SourceScan;
+
+        public AccessoryEntry Clone() => new()
+        {
+            itemId = itemId,
+            source = source,
+            file = file,
+            bone = bone,
+            pos = (float[])pos?.Clone(),
+            rot = (float[])rot?.Clone(),
+            scale = scale,
+        };
     }
 }
